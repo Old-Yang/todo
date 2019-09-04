@@ -15,7 +15,7 @@
     "react-scripts": "3.1.1"
   },
   "scripts": {
-    "start": "cross-env HOST=172.18.5.69 PORT=5201 react-app-rewired start",
+    "start": "cross-env HOST=192.168.31.99 PORT=5201 react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject"
