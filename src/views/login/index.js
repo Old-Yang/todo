@@ -7,7 +7,7 @@ import {
     } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import { createHashHistory } from 'history';
-import request  from '@utils/request';
+import { login }  from '@http/login';
 import './login.scss';
 import logo from '@assets/login/logo.png';
 import lg from '@assets/login/lg.png';
@@ -60,21 +60,17 @@ const Login = class Login extends React.Component {
     }
     submit() {
         history.push('/home');
-        // this.props.form.validateFields(['username', 'password'], (err, values) => {
-        //     if (!err) {
-        //         values.username = values.username === 'admin' ? values.username : values.username.toUpperCase();
-        //         request({
-        //             url: 'uc/auth',
-        //             method: 'post',
-        //             data: values
-        //         }).then(val => {
-        //             localStorage.setItem('token', val.token);
-        //             history.push('/home');
-        //         });
-        //     } else {
-        //         Toast.info('请输入账号和密码', 1);
-        //     }
-        // });
+        this.props.form.validateFields(['username', 'password'], (err, values) => {
+            if (!err) {
+                values.username = values.username === 'admin' ? values.username : values.username.toUpperCase();
+                login('uc/auth', values).then(val => {
+                    localStorage.setItem('token', val.token);
+                    history.push('/home');
+                });
+            } else {
+                Toast.info('请输入账号和密码', 1);
+            }
+        });
     }
     render() {
         const { getFieldProps } = this.props.form;

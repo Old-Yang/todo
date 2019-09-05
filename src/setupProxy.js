@@ -35,10 +35,19 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = function(app) {
     app.use(
         proxy('/uc', {
-            target: aips.oa,
+            target: aips.uc,
             changeOrigin: true,
             pathRewrite: {
                 '^/uc': ''
+            }
+        })
+    );
+    app.use(
+        proxy('/oa', {
+            target: aips.oa,
+            changeOrigin: true,
+            pathRewrite: {
+                '^/oa': ''
             }
         })
     )
