@@ -59,11 +59,14 @@ const Login = class Login extends React.Component {
         }
     }
     submit() {
-        history.push('/home');
+        // history.push('/home');
+        // return
         this.props.form.validateFields(['username', 'password'], (err, values) => {
             if (!err) {
                 values.username = values.username === 'admin' ? values.username : values.username.toUpperCase();
-                login('uc/auth', values).then(val => {
+                localStorage.removeItem('token');
+                login('/uc/auth', values).then(val => {
+                    console.log(val);
                     localStorage.setItem('token', val.token);
                     history.push('/home');
                 });
